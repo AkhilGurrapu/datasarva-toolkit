@@ -1,29 +1,23 @@
-const Card = {
-    create(project) {
-        const htmlFile = project.detailsFile.replace('.md', '.html');
-        
-        return `
-            <a href="project_details/${htmlFile}" class="project-card">
-                <div class="card-image" style="background-image: url('${project.image}')">
-                    <span class="tag">${project.tag}</span>
+export function createCard(project) {
+    const markdownPath = `content/projects/${project.name.toLowerCase().replace(/\s+/g, '-')}.md`;
+    
+    return `
+        <a href="#" class="project-card" data-project="${markdownPath}">
+            <div class="card-image" style="background-image: url('${project.image}')">
+                <span class="tag">${project.category || project.tag}</span>
+            </div>
+            <div class="card-content">
+                <div>
+                    <h2>${project.name || project.title}</h2>
+                    <p class="description">${project.description}</p>
                 </div>
-                <div class="card-content">
-                    <h2>${project.name}</h2>
-                    <p>${project.description}</p>
-                    <div class="author">
-                        <img src="assets/images/avatar.jpg" alt="Author" class="author-avatar">
-                        <span>${project.author}</span>
+                <div class="author">
+                    <div class="author-images">
+                        <img src="assets/images/avatar.png" alt="Author" class="author-avatar">
                     </div>
+                    <span>${project.author || 'Akhil Gurrapu'}</span>
                 </div>
-            </a>
-        `;
-    },
-
-    renderGrid(projects, container) {
-        container.innerHTML = projects
-            .map(project => this.create(project))
-            .join('');
-    }
-};
-
-export default Card;
+            </div>
+        </a>
+    `;
+}

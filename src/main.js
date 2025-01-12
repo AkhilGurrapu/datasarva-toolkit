@@ -1,6 +1,8 @@
 import projectData from './modules/projectData.js';
-import cardUI from './components/card.js';
+import cardUI from './card.js';
 import filterModule from './modules/filterModule.js';
+import { createCard } from './components/Card.js';
+import { loadMarkdownFile } from './modules/markdownLoader.js';
 
 class App {
     constructor() {
@@ -39,6 +41,7 @@ class App {
 
             this.bindEvents();
             this.updateDisplay();
+            this.initializeProjectClicks();
         } catch (error) {
             console.error('Failed to initialize app:', error);
             this.projectGrid.innerHTML = `<div class="error">Failed to load projects: ${error.message}</div>`;
@@ -80,6 +83,54 @@ class App {
         }
         
         cardUI.renderCards(filteredProjects, this.projectGrid);
+    }
+
+    initializeProjectClicks() {
+        this.projectGrid.addEventListener('click', async (e) => {
+            const projectCard = e.target.closest('.project-card');
+            if (projectCard) {
+                e.preventDefault();
+                const projectPath = projectCard.dataset.project;
+                console.log('Clicked project path:', projectPath);
+                try {
+                    const content = await loadMarkdownFile(projectPath);
+                    this.displayProjectModal(content);
+                } catch (error) {
+                    console.error('Error loading project:', error);
+                }
+            }
+        });
+    }
+
+    displayProjectModal(content) {
+        let modal = document.querySelector('.modal');
+        if (!modal) {
+            modal = document.createElement('div');
+            modal.className = 'modal';
+            document.body.appendChild(modal);
+        }
+
+        modal.innerHTML = `
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <div class="markdown-content">
+                    ${content}
+                </div>
+            </div>
+        `;
+
+        modal.style.display = 'block';
+
+        const closeBtn = modal.querySelector('.close-btn');
+        closeBtn.onclick = () => {
+            modal.style.display = 'none';
+        };
+
+        window.onclick = (event) => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        };
     }
 }
 

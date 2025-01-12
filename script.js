@@ -2,48 +2,55 @@
 const projectData = {
     projects: [
         {
-            name: "RAG with Long-term Memory",
-            description: "PLUS: Opensource AI layer on Playwright, Cohere's AI agents for enterprise",
-            image: "assets/images/rag-ltm.jpg",
-            tag: "Daily Unwind",
-            author: "Shubham Saboo, +1"
-        },
-        {
-            name: "Don't Do RAG; Do CAG",
-            description: "PLUS: Open source computer use agent, Local LLM with function calling",
-            image: "assets/images/cag.jpg",
-            tag: "Daily Unwind",
-            author: "Shubham Saboo, +1"
-        },
-        {
-            name: "One API for RAG, Search & Recommendations",
-            description: "PLUS: No-code AI automations and agents, NVIDIA's agent avatar with vision",
-            image: "assets/images/unified-rag.jpg",
-            tag: "Daily Unwind",
-            author: "Shubham Saboo, +1"
-        },
-        {
-            name: "Build an AI Data Visualization Agent",
-            description: "Create intelligent agents for data visualization and analysis",
-            image: "assets/images/viz-agent.jpg",
-            tag: "AI Tutorial",
-            author: "Shubham Saboo, +1"
-        },
-        {
-            name: "RAG-as-a-Service",
-            description: "Deploy and manage RAG systems at scale",
-            image: "assets/images/rag-service.jpg",
-            tag: "Daily Unwind",
-            author: "Shubham Saboo, +1"
-        },
-        {
-            name: "Memory Recall in AI Agents",
-            description: "Implement effective memory systems for AI agents",
-            image: "assets/images/memory-recall.jpg",
-            tag: "Daily Unwind",
-            author: "Shubham Saboo, +1"
-        }
-    ]
+            name: "TensorFlow",
+            description: "A comprehensive open-source machine learning framework used for building and deploying AI models at scale [3][4].",
+            image: "assets/images/tensorflow.jpg",
+            tag: "AI & Data",
+            author: "Akhil Gurrapu"
+          },
+          {
+            name: "PyTorch",
+            description: "A popular open-source ML framework known for its dynamic computation graph and intuitive design [3][4].",
+            image: "assets/images/pytorch.jpg",
+            tag: "AI & Data",
+            author: "Akhil Gurrapu"
+          },
+          {
+            name: "Keras",
+            description: "A high-level neural networks API written in Python, running on top of TensorFlow [3][4].",
+            image: "assets/images/keras.jpg",
+            tag: "AI & Data",
+            author: "Akhil Gurrapu"
+          },
+          {
+            name: "H2O.ai",
+            description: "An open-source AI platform providing automated machine learning, supporting large-scale parallel computing [3].",
+            image: "assets/images/h2oai.jpg",
+            tag: "AI & Data",
+            author: "Akhil Gurrapu"
+          },
+          {
+            name: "Mistral AI",
+            description: "Open-source AI models focusing on efficiency and accessibility, known for their smaller yet powerful architectures [3].",
+            image: "assets/images/mistral-ai.jpg",
+            tag: "AI & Data",
+            author: "Akhil Gurrapu"
+          },
+          {
+            name: "MindsDB",
+            description: "A platform aiming to democratize machine learning by integrating ML frameworks directly into databases [9][13].",
+            image: "assets/images/mindsdb.jpg",
+            tag: "AI & Data",
+            author: "Akhil Gurrapu"
+          },
+          {
+            name: "OpenCV",
+            description: "An open-source library for computer vision and machine learning, offering a wide range of vision algorithms [4].",
+            image: "assets/images/opencv.jpg",
+            tag: "AI & Data",
+            author: "Akhil Gurrapu"
+          }
+        ]
 };
 
 // Card UI Module
@@ -59,8 +66,7 @@ const cardUI = {
                     <p class="description">${project.description}</p>
                     <div class="author">
                         <div class="author-images">
-                            <img src="assets/images/author1.jpg" alt="Author" class="author-avatar">
-                            <img src="assets/images/author2.jpg" alt="Author" class="author-avatar author-avatar-offset">
+                            <img src="assets/images/avatar.jpg" alt="Author" class="author-avatar">
                         </div>
                         <span>${project.author}</span>
                     </div>
