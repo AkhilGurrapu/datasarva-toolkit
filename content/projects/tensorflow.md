@@ -1,21 +1,33 @@
 ---
-name: "TensorFlow"
-description: "A comprehensive open-source machine learning framework used for building and deploying AI models at scale."
-image: "assets/images/tensorflow.jpg"
-tag: "AI & Data"
-author: "Akhil Gurrapu"
+title: TensorFlow
+description: A comprehensive open-source machine learning framework used for building and deploying AI models at scale.
+author: Akhil Gurrapu
+tags: AI Framework, Machine Learning, Deep Learning
+image: /assets/images/tensorflow.jpg
+date: Jan 20, 2024
 ---
 
-# TensorFlow
+# TensorFlow: Revolutionizing Machine Learning
 
-TensorFlow is a powerful open-source machine learning framework developed by Google Brain Team. It supports building and deploying AI models at scale, offering flexibility for both beginners and experts.
+## What is TensorFlow?
 
-## Resources:
-- [Official Website](https://www.tensorflow.org)
-- [GitHub Repository](https://github.com/tensorflow/tensorflow)
-- [Documentation](https://www.tensorflow.org/learn)
+TensorFlow is an end-to-end open-source platform for machine learning. It has a comprehensive, flexible ecosystem of tools, libraries, and community resources that lets researchers push the state-of-the-art in ML and developers easily build and deploy ML-powered applications.
 
-## Tutorials:
-- [Getting Started with TensorFlow](https://www.tensorflow.org/tutorials)
-- [Building Neural Networks with TensorFlow](https://www.tensorflow.org/tutorials/quickstart)
+## Key Features
 
+### Flexible Architecture
+- Easy model building with intuitive high-level APIs
+- Robust ML production anywhere
+- Powerful experimentation for research
+
+### Powerful Tools
+- TensorBoard for visualization
+- TensorFlow Hub for model sharing
+- TensorFlow Lite for mobile deployment
+
+### Cross-Platform Support
+- Runs on multiple CPUs and GPUs
+- Supports mobile and edge devices
+- Cloud integration capabilities
+
+## Getting Started

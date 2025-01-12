@@ -56,8 +56,14 @@ const projectData = {
 // Card UI Module
 const cardUI = {
     createCard(project) {
+        // Create a simpler path to the markdown file
+        const fileName = project.name.toLowerCase()
+            .replace(/[\s\.]+/g, '')
+            .replace(/\-/g, '')
+            + '.md';
+            
         return `
-            <div class="project-card">
+            <a href="content/projects/${fileName}" class="project-card" style="cursor: pointer;">
                 <div class="card-image" style="background-image: url('${project.image}')">
                     <span class="tag">${project.tag}</span>
                 </div>
@@ -71,7 +77,7 @@ const cardUI = {
                         <span>${project.author}</span>
                     </div>
                 </div>
-            </div>
+            </a>
         `;
     }
 };
