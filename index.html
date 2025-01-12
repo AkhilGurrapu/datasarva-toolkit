@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Directory</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="/" class="logo">
+                <img src="assets/images/logo.svg" alt="AI Directory">
+                AI Directory
+            </a>
+            <div class="nav-links">
+                <a href="/about">About Us</a>
+                <a href="/sponsor">Sponsor</a>
+                <a href="/apps">AI Apps</a>
+                <a href="/login" class="login-link">Login</a>
+                <button class="subscribe-btn">Subscribe</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="hero">
+            <img src="assets/images/logo.svg" alt="AI Directory" class="hero-logo">
+            <h1>AI Directory</h1>
+            <p class="subtitle">Latest AI tools, frameworks and tutorials for AI Developers</p>
+        </div>
+
+        <div class="search-section">
+            <div class="search-box">
+                <span class="search-icon">✉️</span>
+                <input type="text" id="searchInput" placeholder="Search AI projects...">
+            </div>
+            <select class="category-select">
+                <option value="all">All Categories</option>
+                <!-- Add more categories as needed -->
+            </select>
+        </div>
+
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="tutorial">AI Tutorial</button>
+            <button class="filter-btn" data-filter="daily">Daily Unwind</button>
+            <button class="filter-btn" data-filter="weekly">Weekly Unwind</button>
+        </div>
+
+        <div id="projectGrid">
+            <!-- Projects will be loaded here -->
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <h3>Connect</h3>
+            <div class="social-links">
+                <a href="#" class="social-link">𝕏</a>
+                <a href="#" class="social-link">in</a>
+                <a href="#" class="social-link">G</a>
+                <a href="#" class="social-link">RSS</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
