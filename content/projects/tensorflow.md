@@ -4,7 +4,8 @@ description: "Explore TensorFlow, Google's open-source machine learning framewor
 author: "Akhil Gurrapu"
 date: "Jan 20, 2024"
 image: "assets/images/tensorflow.jpg"
-tags: ["Machine Learning", "Data Analytics", "AI Framework"]
+tags: ["Machine Learning", "Data Analytics", "AI Framework", "Research"]
+category: "Projects"
 ---
 
 # TensorFlow: Revolutionizing Machine Learning Development
@@ -53,9 +54,11 @@ TensorFlow is Google's open-source machine learning framework designed to simpli
      tf.keras.layers.Dense(128, activation='relu'),
      tf.keras.layers.Dense(10, activation='softmax')
    ])
-   ```
+  ```
+
 
 ## Resources
 - [Official Documentation](https://tensorflow.org/docs)
 - [TensorFlow Tutorials](https://tensorflow.org/tutorials)
 - [GitHub Repository](https://github.com/tensorflow/tensorflow)
+

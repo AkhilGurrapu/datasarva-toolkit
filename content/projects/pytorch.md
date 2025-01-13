@@ -1,9 +1,12 @@
 ---
-name: "PyTorch"
+title: "PyTorch"
 description: "A popular open-source ML framework known for its dynamic computation graph and intuitive design."
 image: "assets/images/pytorch.jpg"
-tag: "AI & Data"
 author: "Akhil Gurrapu"
+date: "Jan 20, 2024"
+image: "assets/images/pytorch.png"
+tags: ["Machine Learning", "Data Analytics", "AI Framework"]
+category: "AI Apps"
 ---
 
 # PyTorch
