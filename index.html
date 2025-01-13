@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DataSarva AI"</title>
+    <title>DataSarva AI</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <nav class="navbar">
         <div class="container">
             <div class="nav-left">
-                <a href="/" class="logo">
+                <a href="index.html" class="logo">
                     <img src="assets/images/DataSarva.jpg" alt="DataSarva">
                 </a>
                 <div class="nav-menu">
-                    <a href="/ai-apps" class="nav-link">AI Apps</a>
-                    <a href="/projects" class="nav-link">Projects</a>
-                    <a href="/data-tools" class="nav-link">Data Tools</a>
+                    <a href="index.html" class="nav-link">AI Apps</a>
+                    <a href="index.html" class="nav-link">Projects</a>
+                    <a href="index.html" class="nav-link">Data Tools</a>
                 </div>
             </div>
             <div class="nav-right">
@@ -35,7 +35,7 @@
 
         <div class="search-section">
             <div class="search-box">
-                <span class="search-icon">✉️</span>
+                <span class="search-icon">🔍</span>
                 <input type="text" id="searchInput" placeholder="Search AI projects...">
             </div>
         </div>
@@ -52,18 +52,25 @@
         </div>
     </main>
 
-    <footer>
+    <footer class="footer">
         <div class="container">
-            <h3>Connect</h3>
-            <div class="social-links">
-                <a href="#" class="social-link">𝕏</a>
-                <a href="#" class="social-link">in</a>
-                <a href="#" class="social-link">G</a>
-                <a href="#" class="social-link">RSS</a>
+            <div class="connect">
+                <h3>Connect</h3>
+                <div class="social-links">
+                    <a href="#" class="social-link">𝕏</a>
+                    <a href="#" class="social-link">in</a>
+                    <a href="#" class="social-link">G</a>
+                    <a href="#" class="social-link">RSS</a>
+                </div>
             </div>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
+
+    <div id="debug" style="display: none; padding: 20px; margin: 20px; background: #f5f5f5;">
+        <h3>Debug Information</h3>
+        <pre id="debugContent"></pre>
+    </div>
 </body>
 </html>

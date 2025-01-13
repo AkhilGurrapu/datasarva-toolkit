@@ -1,69 +1,127 @@
-// Project Data Module
-const projectData = {
-    projects: [
-        {
-            name: "TensorFlow",
-            description: "A comprehensive open-source machine learning framework used for building and deploying AI models at scale [3][4].",
-            image: "assets/images/tensorflow.jpg",
-            tag: "AI & Data",
-            author: "Akhil Gurrapu"
-          },
-          {
-            name: "PyTorch",
-            description: "A popular open-source ML framework known for its dynamic computation graph and intuitive design [3][4].",
-            image: "assets/images/pytorch.jpg",
-            tag: "AI & Data",
-            author: "Akhil Gurrapu"
-          },
-          {
-            name: "Keras",
-            description: "A high-level neural networks API written in Python, running on top of TensorFlow [3][4].",
-            image: "assets/images/keras.jpg",
-            tag: "AI & Data",
-            author: "Akhil Gurrapu"
-          },
-          {
-            name: "H2O.ai",
-            description: "An open-source AI platform providing automated machine learning, supporting large-scale parallel computing [3].",
-            image: "assets/images/h2oai.jpg",
-            tag: "AI & Data",
-            author: "Akhil Gurrapu"
-          },
-          {
-            name: "Mistral AI",
-            description: "Open-source AI models focusing on efficiency and accessibility, known for their smaller yet powerful architectures [3].",
-            image: "assets/images/mistral-ai.jpg",
-            tag: "AI & Data",
-            author: "Akhil Gurrapu"
-          },
-          {
-            name: "MindsDB",
-            description: "A platform aiming to democratize machine learning by integrating ML frameworks directly into databases [9][13].",
-            image: "assets/images/mindsdb.jpg",
-            tag: "AI & Data",
-            author: "Akhil Gurrapu"
-          },
-          {
-            name: "OpenCV",
-            description: "An open-source library for computer vision and machine learning, offering a wide range of vision algorithms [4].",
-            image: "assets/images/opencv.jpg",
-            tag: "AI & Data",
-            author: "Akhil Gurrapu"
-          }
-        ]
-};
+import { loadMarkdownFile, parseMarkdownFrontMatter } from './src/utils/markdownLoader.js';
+import { getProjectFiles } from './src/utils/projectLoader.js';
 
-// Card UI Module
-const cardUI = {
-    createCard(project) {
-        // Create URL-safe filename
-        const mdPath = `content/projects/${project.name.toLowerCase()
-            .replace(/[^\w\s-]/g, '') // Remove special characters
-            .replace(/\s+/g, '-') // Replace spaces with hyphens
-            .trim()}.md`;
+class App {
+    constructor() {
+        this.currentFilter = 'all';
+        this.searchTerm = '';
+        this.projects = [];
+        this.init();
+    }
+
+    async init() {
+        try {
+            console.log('Initializing app...');
+            const projectGrid = document.getElementById('projectGrid');
             
+            if (!projectGrid) {
+                throw new Error('Project grid element not found');
+            }
+            
+            projectGrid.innerHTML = '<div class="loading">Loading projects...</div>';
+            
+            // Check project files first
+            const files = await this.checkProjectFiles();
+            console.log('Project files check completed:', files);
+            
+            await this.loadProjects();
+            console.log('Projects loaded:', this.projects);
+            
+            this.bindEvents();
+            this.renderProjects();
+        } catch (error) {
+            console.error('Failed to initialize app:', error);
+            const projectGrid = document.getElementById('projectGrid');
+            if (projectGrid) {
+                projectGrid.innerHTML = `<div class="error">Failed to load projects: ${error.message}</div>`;
+            }
+        }
+    }
+
+    async loadProjects() {
+        try {
+            const projectFiles = await getProjectFiles();
+            console.log('Found project files:', projectFiles);
+            
+            if (!projectFiles.length) {
+                console.warn('No markdown files found, using fallback data');
+                this.projects = this.getFallbackProjects();
+                return;
+            }
+
+            const loadedProjects = await Promise.all(
+                projectFiles.map(async (filePath, index) => {
+                    try {
+                        console.log('Loading project:', filePath);
+                        const markdown = await loadMarkdownFile(filePath);
+                        const parsed = parseMarkdownFrontMatter(markdown);
+                        
+                        if (!parsed) {
+                            console.error(`Invalid markdown format in ${filePath}`);
+                            return null;
+                        }
+
+                        return {
+                            id: index + 1,
+                            filePath,
+                            ...parsed.metadata,
+                            content: parsed.content
+                        };
+                    } catch (error) {
+                        console.error(`Error loading ${filePath}:`, error);
+                        return null;
+                    }
+                })
+            );
+
+            // Filter out failed loads and update projects
+            this.projects = loadedProjects.filter(project => project !== null);
+            
+            if (this.projects.length === 0) {
+                console.warn('No projects could be loaded, using fallback data');
+                this.projects = this.getFallbackProjects();
+            }
+            
+            console.log('Loaded projects:', this.projects);
+        } catch (error) {
+            console.error('Error in loadProjects:', error);
+            this.projects = this.getFallbackProjects();
+            throw error;
+        }
+    }
+
+    bindEvents() {
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            this.searchTerm = e.target.value.toLowerCase();
+            this.renderProjects();
+        });
+
+        // Filter buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                document.querySelectorAll('.filter-btn').forEach(b => 
+                    b.classList.remove('active'));
+                e.target.classList.add('active');
+                this.currentFilter = e.target.dataset.filter;
+                this.renderProjects();
+            });
+        });
+    }
+
+    filterProjects() {
+        return this.projects.filter(project => {
+            const matchesSearch = project.name.toLowerCase().includes(this.searchTerm) ||
+                                project.description.toLowerCase().includes(this.searchTerm);
+            const matchesFilter = this.currentFilter === 'all' || 
+                                project.tag.toLowerCase() === this.currentFilter;
+            return matchesSearch && matchesFilter;
+        });
+    }
+
+    createProjectCard(project) {
         return `
-            <a href="project.html?md=${mdPath}" class="project-card">
+            <a href="project.html?id=${project.id}" class="project-card" data-filepath="${project.filePath}">
                 <div class="card-image" style="background-image: url('${project.image}')">
                     <span class="tag">${project.tag}</span>
                 </div>
@@ -80,63 +138,75 @@ const cardUI = {
             </a>
         `;
     }
-};
 
-// Filter Module
-const filterModule = {
-    filterBySearch(projects, searchTerm) {
-        if (!searchTerm) return projects;
-        searchTerm = searchTerm.toLowerCase();
-        return projects.filter(project => 
-            project.name.toLowerCase().includes(searchTerm) ||
-            project.description.toLowerCase().includes(searchTerm)
-        );
-    },
+    renderProjects() {
+        const filteredProjects = this.filterProjects();
+        const projectGrid = document.getElementById('projectGrid');
 
-    filterByTag(projects, tag) {
-        if (tag === 'all') return projects;
-        return projects.filter(project => project.tag === tag);
-    }
-};
-
-// App Controller
-const app = {
-    init() {
-        this.projectGrid = document.getElementById('projectGrid');
-        this.searchInput = document.getElementById('searchInput');
-        
-        this.bindEvents();
-        this.updateDisplay();
-    },
-
-    bindEvents() {
-        this.searchInput.addEventListener('input', () => this.updateDisplay());
-        
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                e.target.classList.add('active');
-                this.updateDisplay(e.target.dataset.filter);
-            });
-        });
-    },
-
-    updateDisplay(tag = 'all') {
-        let filteredProjects = projectData.projects;
-        
-        // Apply search filter
-        filteredProjects = filterModule.filterBySearch(filteredProjects, this.searchInput.value);
-        
-        // Apply tag filter
-        if (tag !== 'all') {
-            filteredProjects = filterModule.filterByTag(filteredProjects, tag);
+        if (filteredProjects.length === 0) {
+            projectGrid.innerHTML = '<div class="no-results">No matching projects found</div>';
+            return;
         }
-        
-        // Render filtered projects
-        const projectsHtml = filteredProjects.map(project => cardUI.createCard(project)).join('');
-        this.projectGrid.innerHTML = projectsHtml;
-    }
-};
 
-// Initialize the application
-document.addEventListener('DOMContentLoaded', () => app.init());
+        projectGrid.innerHTML = filteredProjects
+            .map(project => this.createProjectCard(project))
+            .join('');
+    }
+
+    async checkProjectFiles() {
+        try {
+            const projectFiles = await getProjectFiles();
+            console.log('Available project files:', projectFiles);
+            
+            const results = await Promise.all(projectFiles.map(async filePath => {
+                try {
+                    const response = await fetch(filePath);
+                    console.log(`Checking ${filePath}:`, response.status, response.ok);
+                    return { filePath, ok: response.ok, status: response.status };
+                } catch (error) {
+                    console.error(`Error checking ${filePath}:`, error);
+                    return { filePath, ok: false, error: error.message };
+                }
+            }));
+            
+            return results;
+        } catch (error) {
+            console.error('Error in checkProjectFiles:', error);
+            throw error;
+        }
+    }
+
+    getFallbackProjects() {
+        return [
+            {
+                id: 1,
+                name: "TensorFlow",
+                description: "A comprehensive open-source machine learning framework",
+                image: "assets/images/tensorflow.jpg",
+                tag: "AI & Data",
+                author: "Akhil Gurrapu",
+                content: "# TensorFlow\n\nTensorFlow is an open-source software library..."
+            },
+            {
+                id: 2,
+                name: "PyTorch",
+                description: "Deep learning framework for research and production",
+                image: "assets/images/pytorch.jpg",
+                tag: "Tutorial",
+                author: "Akhil Gurrapu",
+                content: "# PyTorch\n\nPyTorch is an open source machine learning library..."
+            }
+        ];
+    }
+}
+
+// Initialize the application with error handling
+document.addEventListener('DOMContentLoaded', () => {
+    try {
+        new App();
+    } catch (error) {
+        console.error('Failed to initialize application:', error);
+        document.getElementById('projectGrid').innerHTML = 
+            '<div class="error">Failed to initialize application. Please try again later.</div>';
+    }
+});
