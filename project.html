@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Details - DataSarva AI</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked@4.3.0/lib/marked.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.1/dist/purify.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #0066cc;
+            --text-color: #2d3748;
+            --bg-color: #f7fafc;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .project-detail {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0;
+            background: transparent;
+            box-shadow: none;
+        }
+
+        .hero-section {
+            margin-bottom: 60px;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            color: #718096;
+            max-width: 800px;
+            margin-bottom: 2rem;
+        }
+
+        .meta-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .author-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .author-name {
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .post-date {
+            color: #718096;
+        }
+
+        .tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-left: auto;
+        }
+
+        .tag {
+            padding: 0.5rem 1rem;
+            background: #2d3748;
+            color: white;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .featured-image {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 3rem;
+        }
+
+        .content-section {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .content-section h1 {
+            font-size: 2.5rem;
+            color: var(--text-color);
+            margin-bottom: 2rem;
+        }
+
+        .content-section h2 {
+            font-size: 1.8rem;
+            color: var(--text-color);
+            margin: 2rem 0 1rem;
+        }
+
+        .content-section p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            color: #4a5568;
+        }
+
+        .content-section ul {
+            margin: 1.5rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .content-section li {
+            margin-bottom: 0.5rem;
+            color: #4a5568;
+        }
+
+        .content-section a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .content-section a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-left">
+                <a href="/" class="logo">
+                    <img src="assets/images/DataSarva.jpg" alt="DataSarva">
+                </a>
+                <div class="nav-menu">
+                    <a href="/ai-apps" class="nav-link">AI Apps</a>
+                    <a href="/projects" class="nav-link">Projects</a>
+                    <a href="/data-tools" class="nav-link">Data Tools</a>
+                </div>
+            </div>
+            <div class="nav-right">
+                <button class="join-btn">join us</button>
+                <button class="connect-btn">connect</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="project-detail">
+            <div class="hero-section">
+                <h1 class="hero-title" id="project-title"></h1>
+                <p class="hero-description" id="project-description"></p>
+                <div class="meta-info">
+                    <div class="author-info">
+                        <img src="assets/images/avatar.jpg" alt="Author" class="author-avatar">
+                        <span class="author-name" id="project-author"></span>
+                    </div>
+                    <span class="post-date" id="project-date"></span>
+                    <div class="tags" id="project-tags"></div>
+                </div>
+                <img id="project-image" class="featured-image" alt="Project Image">
+            </div>
+            <div class="content-section" id="project-content"></div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <h3>Connect</h3>
+            <div class="social-links">
+                <a href="#" class="social-link">𝕏</a>
+                <a href="#" class="social-link">in</a>
+                <a href="#" class="social-link">G</a>
+                <a href="#" class="social-link">RSS</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const mdFile = urlParams.get('md');
+
+            if (!mdFile) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            try {
+                // Use XMLHttpRequest for better local file support
+                const loadMarkdown = () => {
+                    return new Promise((resolve, reject) => {
+                        const xhr = new XMLHttpRequest();
+                        xhr.open('GET', mdFile, true);
+                        xhr.onload = () => {
+                            if (xhr.status === 200) {
+                                resolve(xhr.responseText);
+                            } else {
+                                reject(new Error(`Failed to load: ${xhr.status}`));
+                            }
+                        };
+                        xhr.onerror = () => reject(new Error('Failed to load file'));
+                        xhr.send();
+                    });
+                };
+
+                const mdText = await loadMarkdown();
+
+                // Parse frontmatter
+                const frontmatterMatch = mdText.match(/^---\n([\s\S]*?)\n---/);
+                if (!frontmatterMatch) throw new Error('Invalid markdown format');
+
+                const frontmatter = {};
+                frontmatterMatch[1].split('\n').forEach(line => {
+                    const [key, ...valueParts] = line.split(':');
+                    if (key && valueParts.length) {
+                        const value = valueParts.join(':').trim().replace(/^["']|["']$/g, '');
+                        frontmatter[key.trim()] = value;
+                    }
+                });
+
+                // Remove frontmatter from content
+                const content = mdText.replace(/^---[\s\S]*?---/, '').trim();
+
+                // Configure marked with security options
+                marked.use({
+                    headerIds: true,
+                    mangle: false,
+                    breaks: true,
+                    gfm: true
+                });
+
+                // Convert markdown to HTML and sanitize
+                const htmlContent = marked.parse(content);
+                const sanitizedHtml = DOMPurify.sanitize(htmlContent);
+
+                // Update page elements
+                document.title = `${frontmatter.title} - DataSarva AI`;
+                document.getElementById('project-title').textContent = frontmatter.title;
+                document.getElementById('project-description').textContent = frontmatter.description;
+                document.getElementById('project-author').textContent = frontmatter.author;
+                document.getElementById('project-date').textContent = frontmatter.date;
+                document.getElementById('project-image').src = frontmatter.image;
+
+                // Handle tags
+                const tagsContainer = document.getElementById('project-tags');
+                if (frontmatter.tags && Array.isArray(frontmatter.tags)) {
+                    tagsContainer.innerHTML = frontmatter.tags
+                        .map(tag => `<span class="tag">${tag}</span>`)
+                        .join('');
+                }
+
+                document.getElementById('project-content').innerHTML = sanitizedHtml;
+
+            } catch (error) {
+                console.error('Error loading project:', error);
+                document.getElementById('project-content').innerHTML = `
+                    <div class="error-message">
+                        <h2>Error Loading Project</h2>
+                        <p>Sorry, we couldn't load the project content. Please try again later.</p>
+                        <p class="error-details">${error.message}</p>
+                        <a href="index.html" class="back-link">Return to Home</a>
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html> 
