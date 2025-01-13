@@ -1,0 +1,9 @@
+.project-detail {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+/* ... rest of the project detail styles ... */ 

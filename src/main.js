@@ -1,6 +1,7 @@
 import projectData from './modules/projectData.js';
 import cardUI from './card.js';
 import filterModule from './modules/filterModule.js';
+import { createCard } from './components/Card.js';
 import { loadMarkdownFile } from './modules/markdownLoader.js';
 
 class App {
