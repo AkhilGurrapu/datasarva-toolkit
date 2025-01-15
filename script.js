@@ -5,7 +5,9 @@ const projectData = {
         const projectFiles = [
             // Add new project files here
             'content/projects/tensorflow.md',
-            'content/projects/pytorch.md'
+            'content/projects/pytorch.md',
+            'content/projects/researcher-agent.md',
+            'content/projects/executive-ai-assistant.md'
         ];
 
         const projects = await Promise.all(projectFiles.map(async (file) => {

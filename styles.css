@@ -286,7 +286,7 @@ main {
 
 .card-image {
     height: 240px;
-    background-size: cover;
+    background-size: contain;
     background-position: center;
     position: relative;
     border-radius: var(--border-radius) var(--border-radius) 0 0;

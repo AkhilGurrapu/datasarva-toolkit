@@ -3,7 +3,8 @@ const projectData = {
     async loadProjects() {
         const projectFiles = [
             '../content/projects/tensorflow.md',
-            '../content/projects/pytorch.md'
+            '../content/projects/pytorch.md',
+            '../content/projects/researcher-agent.md'
             // Add more project files here
         ];
 

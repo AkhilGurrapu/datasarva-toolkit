@@ -41,19 +41,19 @@ TensorFlow is Google's open-source machine learning framework designed to simpli
 ## Getting Started
 
 1. **Installation**
-   ```python
-   pip install tensorflow
-   ```
+  ```python
+  pip install tensorflow
+  ```
 
 2. **Basic Usage**
-   ```python
-   import tensorflow as tf
-   
-   # Create a simple model
-   model = tf.keras.Sequential([
-     tf.keras.layers.Dense(128, activation='relu'),
-     tf.keras.layers.Dense(10, activation='softmax')
-   ])
+  ```python
+  import tensorflow as tf
+  
+  # Create a simple model
+  model = tf.keras.Sequential([
+    tf.keras.layers.Dense(128, activation='relu'),
+    tf.keras.layers.Dense(10, activation='softmax')
+  ])
   ```
 
 
