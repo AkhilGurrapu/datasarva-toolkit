@@ -624,3 +624,293 @@ main {
     width: 100%;
     background-color: var(--primary-color);
 }
+
+/* Add these new styles */
+.purple-theme {
+    background-color: #4A148C;
+    color: white;
+}
+
+.hero-section {
+    text-align: center;
+    padding: 4rem 0;
+}
+
+.hero-section h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.hero-section .subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+}
+
+.search-input {
+    width: 100%;
+    max-width: 600px;
+    padding: 1rem 1.5rem;
+    border-radius: 50px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.15);
+    color: white;
+    font-size: 1.1rem;
+    margin: 0 auto 3rem;
+    display: block;
+}
+
+.search-input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.featured-section {
+    width: 100vw;
+    margin: 3rem 0;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    padding: 2rem 0;
+}
+
+.featured-section .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.featured-slider {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.featured-tools-container {
+    display: flex;
+    gap: 20px;
+    transition: transform 0.15s ease-out;
+    will-change: transform;
+    padding: 2rem 0;
+}
+
+.featured-tool-card {
+    flex: 0 0 300px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.15s ease-out;
+    text-decoration: none;
+    color: white;
+    opacity: 0.5;
+    transform: scale(0.85);
+    position: relative;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.featured-tool-card.active {
+    opacity: 1;
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+.tool-icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 1rem;
+}
+
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.slider-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.slider-btn.prev {
+    left: 20px;
+}
+
+.slider-btn.next {
+    right: 20px;
+}
+
+/* Tool card specific styles */
+.featured-tool-card .tool-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.featured-tool-card .tool-icon {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 5px;
+}
+
+.featured-tool-card h3 {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+.featured-tool-card .description {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+}
+
+.featured-tool-card .category-tag {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    font-size: 0.8rem;
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.filter-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.filter-btn.active {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem 0;
+}
+
+.tool-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    text-decoration: none;
+    color: white;
+    display: block;
+    cursor: pointer;
+}
+
+.tool-card:hover,
+.featured-tool-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.tool-content {
+    padding: 1.5rem;
+}
+
+.category-tag {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.1);
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.tool-icon-wrapper {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.tool-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Add loading state */
+.tool-icon-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tool-icon-wrapper.loading::before {
+    opacity: 1;
+}
+
+.tool-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.tool-card:hover .category-tag,
+.featured-tool-card:hover .category-tag {
+    background: rgba(255, 255, 255, 0.2);
+}
+.tool-link {
+    display: inline-flex;
+    align-items: center;
+    color: white;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.tool-card:hover .tool-link {
+    opacity: 1;
+}
